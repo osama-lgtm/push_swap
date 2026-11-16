@@ -1,10 +1,12 @@
-void sa(stack a)
+#include "stacks.h"
+void sa(t_stack *a)
 {
     int temp;
+    int b;
 
-    temp = a.digit;
-    b = a.next;
-    a.digit = ;
+    temp = a->value;
+    a = a->next;
+    a->value = ;
     a[1] = temp;
     printf("sa ");
 }
@@ -29,4 +31,9 @@ void ss(stack a, stack b)
 void pa()
 {
     b[0] = a[0];
+}
+
+void pb()
+{
+    a[0] = b[0];
 }
