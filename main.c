@@ -1,9 +1,6 @@
+#include "stacks.h"
 int main(int argc, void *argv[])
 {
     int i = 0;
-    while (argv[1][i])
-    {
-        
-        i++;
-    }
+    push_swap(argv[1]);
 }
