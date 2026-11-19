@@ -1,64 +1,54 @@
 #include "stacks.h"
 
-static double	compute_disorder(int *a)
+static double  compute_disorder(int argc,char **argv)
 {
-	int mistakes = 0;
-	int pair = 0;
-	int temp;
+    int mistakes;
+    int total_pairs;
+	int i;
 
-	while (a[pair])
-	{
-		temp = a[pair];
-		pair++;
-		if (a[pair] < temp)
-			mistakes++;
-	}
-	return ((double)mistakes / pair);
-}
-static void strat_select(char *strat)
-{
-	if (strcmp(strat, "--simple"))
-	{
-
-	}
-	else if (strcmp(strat, "--medium"))
-	{
-
-	}
-	else if (strcmp(strat, "--complex"))
-	{
-
-	}
-}
-int	ft_check(int *numbers)
-{
-	int	i;
-
+	mistakes = 0;
 	i = 0;
-	while (numbers[i])
-	{
-		
-	}
-	if (i == 0)
-		return (0);
+    total_pairs = 0;
+    while(i < argc)
+    {
+        while (argv[1 + total_pairs][i])
+        {
+            if (ft_atoi(argv[total_pairs]) > ft_atoi(argv[total_pairs + 1]))
+                mistakes++;
+            total_pairs++;
+        }
+    }
+    return ((double)mistakes / total_pairs);
 }
-void	push_swap(int *numbers, char *strat)
-{
-	t_stack *a;
-	t_stack *b;
 
-	if (ft_check(numbers) == 0);
-		return (write(2, "Error", 5));
-	if (compute_disorder(numbers) < 0.2)
-	{
-		simple_alg(a, b);
-	}
-	else if (compute_disorder(numbers) < 0.5 && compute_disorder(numbers) > 0.2)
-	{
-		medium_alg(a, b);
-	}
-	else
-	{
-		complex_alg(a, b);
-	}
+static int  ft_check(int argc,char **argv)
+{
+    int i;
+    int j;
+
+    j = 0;
+    i = 0;
+    while(i < argc)
+    {
+        while(argv[i][j])
+        {
+            if (argv[i][j] == '-' || argv[i][j] == '+')
+                j++;
+            if (!(argv[i][j] <= '9' && argv[i][j] >= '0'))
+                return (0);
+            j++;
+        }
+        i++;
+    }
+}
+
+int	push_swap(int argc, char **argv)
+{
+    double 	disorder;
+    t_stack	*stack;
+    if (!ft_check(argc, argv));
+        return(write(1, "error", 5));
+    disorder = compute_disorder(argc, argv);
+    fill_stack(stack,argc,argv);
+    strat_select(argv[1]);
 }

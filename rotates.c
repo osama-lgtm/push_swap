@@ -1,89 +1,89 @@
 #include "stacks.h"
+#include <unistd.h>
 
 void ra(t_stack **a, int print)
 {
-    t_stack *first;
-    t_stack *last;
+	t_stack *first;
+	t_stack *last;
 
-    first = *a;
-    last = *a;
+	if (!a || !*a || !(*a)->next)
+		return;
 
-    while (last->next)
-        last = last->next;
-    (*a)->next = NULL;
-    last->next = first;
+	first = *a;
+	last = *a;
+	while (last->next)
+		last = last->next;
+	first->next = NULL;
+	last->next = first;
 	if (print == 1)
 		write(1, "ra\n", 3);
 }
 
 void rb(t_stack **b, int print)
 {
-    t_stack *first;
-    t_stack *last;
+	t_stack *first;
+	t_stack *last;
 
-    first = *b;
-    last = *b;
+	if (!b || !*b || !(*b)->next)
+		return;
 
-    while (last->next)
-        last = last->next;
-    (*b)->next = NULL;
-    last->next = first;
+	first = *b;
+	last = *b;
+	while (last->next)
+		last = last->next;
+	first->next = NULL;
+	last->next = first;
+	*b = first->next;
 	if (print == 1)
 		write(1, "rb\n", 3);
 }
 
 void rr(t_stack **a, t_stack **b)
 {
-    rb(b, 0);
-    ra(a, 0);
+	ra(a, 0);
+	rb(b, 0);
 	write(1, "rr\n", 3);
 }
 
 void rra(t_stack **a, int print)
 {
-    t_stack *first;
-    t_stack *last;
-    t_stack *temp;
+	t_stack *last;
+	t_stack *second_last;
 
-    first = *a;
-    last = *a;
-
-    while (last->next)
-    {
-        if (!(last->next->next))
-            temp = last;
-        last = last->next;
-    }
-
-    last->next = first;
-    temp->next = NULL;
-    *a = last;
+	if (!a || !*a || !(*a)->next)
+		return;
+	last = *a;
+	second_last = *a;
+	while (second_last->next->next)
+		second_last = second_last->next;
+	last = second_last->next;
+	last->next = *a;
+	second_last->next = NULL;
+	*a = last;
 	if (print == 1)
 		write(1, "rra\n", 4);
 }
 
 void rrb(t_stack **b, int print)
 {
-    t_stack *first;
-    t_stack *last;
-    t_stack *temp;
+	t_stack *second_last;
+	t_stack *last;
 
-    first = *b;
-    last = *b;
+	if (!b || !*b || !(*b)->next)
+		return;
+	last = *b;
+	second_last = *b;
 
-    while (last->next)
-    {
-        if (!(last->next->next))
-            temp = last;
-        last = last->next;
-    }
-
-    last->next = first;
-    temp->next = NULL;
-    *b = last;
+	while (second_last->next->next)
+		second_last = second_last->next;
+	last = second_last->next;
+	last->next = *b;
+	second_last->next = NULL;
+	*b = last;
 	if (print == 1)
 		write(1, "rrb\n", 4);
 }
+
 void	rrr(t_stack **a, t_stack **b)
 {
 	rra(a, 0);
