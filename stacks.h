@@ -52,7 +52,7 @@ void	free_stack(t_stack **stack);
 
 // Parsing & Metrics
 int		fill_stack(t_stack **a, int argc, char **argv);
-int		ft_atoi(const char *str);
+int		ft_atoi(const char *str, int *value);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_check(int argc, char **argv	);
 double	compute_disorder(t_stack *stack_a);

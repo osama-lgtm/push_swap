@@ -10,25 +10,30 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int *value)
 {
 	int	num;
 	int	n;
+	int	i;
 
 	n = 1;
 	num = 0;
-	if (*str == '-' || *str == '+')
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (*str == '-')
+		if (str[i] == '-')
 			n *= -1;
-		str++;
+		i++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		num += num * 10 + (*str - '0');
-		str++;
+		num += num * 10 + (str[i] - '0');
+		i++;
 	}
-	return (num * n);
+	*value = num * n;
+	if (i == 0)
+		return (0);
+	return (1);
 }
 
 int	fill_stack(t_stack **a, int argc, char **argv)
@@ -40,8 +45,7 @@ int	fill_stack(t_stack **a, int argc, char **argv)
 	i = 0;
 	while (i < argc)
 	{
-		value = ft_atoi(argv[i]);
-		if (!value)
+		if (!ft_atoi(argv[i], &value))
 			return (0);
 		node = ft_lstnew(value);
 		if (!node)

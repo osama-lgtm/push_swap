@@ -78,6 +78,5 @@ int	main(int argc, char **argv)
 	if (bench.enabled)
 		print_benchmark(&bench);
 	free_stack(&stack_a);
-	free_stack(&stack_b);
 	return (0);
 }

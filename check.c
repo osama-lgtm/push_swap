@@ -69,13 +69,19 @@ int	where_start(char **argv)
 int	check_repeat(int argc, char **argv, int start)
 {
 	int	j;
+	int	n1;
+	int	n2;
 
 	while (start < argc)
 	{
 		j = start + 1;
 		while (j < argc)
 		{
-			if (ft_atoi(argv[start]) == ft_atoi(argv[j]))
+			if (!ft_atoi(argv[start], &n1))
+				return (0);
+			if (!ft_atoi(argv[j], &n2))
+				return (0);
+			if (n1 == n2)
 				return (0);
 			j++;
 		}
@@ -103,3 +109,4 @@ int	ft_check(int argc, char **argv)
 		return (0);
 	return (start);
 }
+

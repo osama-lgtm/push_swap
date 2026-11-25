@@ -44,7 +44,6 @@ int get_min_position(t_stack *stack)
         stack = stack->next;
     }
     return (position);
-
 }
 void move_min_to_top(t_stack **a,int position , int size, t_bench *bench)
 {
