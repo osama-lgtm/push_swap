@@ -1,26 +1,30 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
-SRCS = simple_alg.c medium_alg.c complex_alg.c /
-	   list_modif.c rotates.c push_swaps.c /
-	   push_swap
+NAME = push_swap
 
-all: NAME
+SRCS = push_swap.c check.c store_in_stack.c \
+       list_modif.c disorder.c\
+       strat_select.c \
+       rotate.c reverse_rotate.c swap.c push.c \
+	   simple_alg.c medium_alg.c complex_alg.c
 
-NAME = stack.a
+OBJS = $(SRCS:.c=.o)
 
-OBJ = $(SRCS .c:=.o)
+all: $(NAME)
 
-OBJ: SRCS stack.h
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c stacks.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm %.o
+	rm -f $(OBJS)
 
 fclean: clean
-	rm $(NAME)
+	rm -f $(NAME)
 
-re: fclean
-	all
+re: fclean all
 
-.PHONY: clean, fclean, all, re
+.PHONY: clean fclean all re

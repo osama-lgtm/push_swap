@@ -1,13 +1,5 @@
 #include "stacks.h"
 
-int	get_chunk_size(int size)
-{
-	int	chunk;
-
-	chunk = size / get_chunk_count(size);
-	return (chunk);
-}
-
 int	get_chunk_count(int size)
 {
 	int	chunks;
@@ -19,6 +11,15 @@ int	get_chunk_count(int size)
 	chunks = i;
 	return (chunks);
 }
+
+int	get_chunk_size(int size)
+{
+	int	chunk;
+
+	chunk = size / get_chunk_count(size);
+	return (chunk);
+}
+
 
 int	get_max(t_stack *stack)
 {
@@ -52,7 +53,7 @@ int	get_rank(t_stack *stack, int value)
 	return (rank);
 }
 
-static void	assign_ranks(t_stack *stack)
+void	assign_ranks(t_stack *stack)
 {
 	t_stack	*current;
 
@@ -64,7 +65,7 @@ static void	assign_ranks(t_stack *stack)
 	}
 }
 
-static void	push_one_chunk(t_stack **a, t_stack **b, int start, int end)
+void	push_one_chunk(t_stack **a, t_stack **b, int start, int end, t_bench *bench)
 {
 	int	j;
 
@@ -72,21 +73,21 @@ static void	push_one_chunk(t_stack **a, t_stack **b, int start, int end)
 	while (j > 0 && *a)
 	{
 		if ((*a)->rank >= start && (*a)->rank <= end)
-			pb(a, b, 1);
+			pb(a, b, bench, 1);
 		else
-			ra(a, 1);
+			ra(a, bench, 1);
 		j--;
 	}
 }
 
-void	push_chunks(t_stack **a, t_stack **b)
+void	push_chunks(t_stack **a, t_stack **b, t_bench *bench)
 {
-	int		size;
-	int		count;
+	int	size;
+	int	count;
 	int	chunk_size;
-	int		start;
-	int			end;
-	int			i;
+	int	start;
+	int	end;
+	int	i;
 
 	if (!*a)
 		return ;
@@ -102,12 +103,12 @@ void	push_chunks(t_stack **a, t_stack **b)
 			end = size - 1;
 		else
 			end = start + chunk_size - 1;
-		push_one_chunk(a, b, start, end);
+		push_one_chunk(a, b, start, end, bench);
 		start += chunk_size;
 		i++;
 	}
 }
-static void	move_max_to_top(t_stack **b, int position, int size)
+static void	move_max_to_top(t_stack **b, int position, int size, t_bench *bench)
 {
 	int	i;
 
@@ -115,21 +116,23 @@ static void	move_max_to_top(t_stack **b, int position, int size)
 	{
 		while(position)
 		{
-			rb(b,1);
+			rb(b, bench, 1);
 			position--;
 		}
 	}
 	else
-		i = size - position;
-	while (i)
 	{
-		rrb(b,1);
-		i--;
+		i = size - position;
+		while (i)
+		{
+			rrb(b, bench, 1);
+			i--;
+		}
 	}
 }
 
 
-static int	get_max_position(t_stack *b, int max)
+int	get_max_position(t_stack *b, int max)
 {
 	int	position;
 	int	i;
@@ -146,7 +149,7 @@ static int	get_max_position(t_stack *b, int max)
 	return (position);
 }
 
-void	push_back(t_stack **a, t_stack **b)
+void	push_back(t_stack **a, t_stack **b, t_bench *bench)
 {
 	int	max;
 	int	position;
@@ -157,12 +160,12 @@ void	push_back(t_stack **a, t_stack **b)
 		size = stack_size(*b);
 		max = get_max(*b);
 		position = get_max_position(*b , max);
-		move_max_to_top(b, position, size);
-		pa(a, b, 1);
+		move_max_to_top(b, position, size, bench);
+		pa(a, b, bench, 1);
 	}
 }
-void medium_alg(t_stack **a, t_stack **b)
+void medium_alg(t_stack **a, t_stack **b, t_bench *bench)
 {
-	push_chunks(a, b);
-	push_back(a, b);
+	push_chunks(a, b, bench);
+	push_back(a, b, bench);
 }

@@ -18,12 +18,18 @@ void ft_lstadd_back(t_stack **lst, t_stack *new)
         ft_lstlast(*lst)->next = new;
 }
 
-void ft_lstadd_front(t_stack **lst, t_stack *new)
+void	free_stack(t_stack **stack)
 {
-	if (!lst || !new)
-		return;
-	new->next = *lst;
-	*lst = new;
+	t_stack	*temp;
+
+	if (!stack)
+		return ;
+	while (*stack)
+	{
+		temp = (*stack)->next;
+		free(*stack);
+		*stack = temp;
+	}
 }
 
 t_stack *ft_lstnew(int value)

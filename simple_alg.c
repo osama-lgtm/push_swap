@@ -2,12 +2,12 @@
 
 int stack_size(t_stack *stack)
 {
-    int count;
+	int count;
 
-    count = 0;
-    while (stack)
-    {
-        count++;
+	count = 0;
+	while (stack)
+	{
+		count++;
         stack = stack->next;
     }
     return (count);
@@ -46,29 +46,30 @@ int get_min_position(t_stack *stack)
     return (position);
 
 }
-void move_min_to_top(t_stack **a,int position , int size)
+void move_min_to_top(t_stack **a,int position , int size, t_bench *bench)
 {
+	int	i;
+
     if (position <= size/2)
     {
+		i = 0;
         while(position)
         {
-            ra(a,1);
+            ra(a, bench, 1);
             position--;
         }
     }
     else
     {
-        int i = 0 ;
         i = size - position;
         while (i)
         {
-            rra(a,1);
+            rra(a, bench, 1);
             i--;
         }
     }
-
 }
-void simple_alg(t_stack **a, t_stack **b)
+void simple_alg(t_stack **a, t_stack **b, t_bench *bench)
 {
     int size ;
     int position;
@@ -77,13 +78,11 @@ void simple_alg(t_stack **a, t_stack **b)
     {
     size = stack_size(*a);
     position = get_min_position(*a);
-    move_min_to_top(a, position, size);
-    pb(a,b,1);
+    move_min_to_top(a, position, size, bench);
+    pb(a, b, bench, 1);
 
     }
     while (*b)
-    {
-        pa(a,b,1);
-    }
+        pa(a, b, bench, 1);
 
 }

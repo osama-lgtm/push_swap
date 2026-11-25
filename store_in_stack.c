@@ -1,5 +1,14 @@
 #include "stacks.h"
-#include <unistd.h>
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -8,34 +17,33 @@ int	ft_atoi(const char *str)
 
 	n = 1;
 	num = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			n *= -1;
 		str++;
-		if (*str == '-' || *str == '+')
-			return (0);
 	}
 	while (*str >= '0' && *str <= '9')
 	{
-		num *= 10;
-		num += (*str - '0');
+		num += num * 10 + (*str - '0');
 		str++;
 	}
 	return (num * n);
 }
 
-int fill_stack(t_stack **a, int argc, char **argv)
+int	fill_stack(t_stack **a, int argc, char **argv)
 {
-	int      i;
-	t_stack *node;
+	int		i;
+	int		value;
+	t_stack	*node;
 
-	i = 1;
+	i = 0;
 	while (i < argc)
 	{
-		node = ft_lstnew(ft_atoi(argv[i]));
+		value = ft_atoi(argv[i]);
+		if (!value)
+			return (0);
+		node = ft_lstnew(value);
 		if (!node)
 			return (0);
 		ft_lstadd_back(a, node);
