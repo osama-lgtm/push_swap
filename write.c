@@ -64,7 +64,7 @@ void        print_benchmark(t_bench *b)
         putnbr_fd(frac, 2);
         write (2, "%\n[bench] strategy: ", 20);
         write (2, b->strat_name, ft_strlen(b->strat_name));
-        write (2, "/ ", 3);
+        write (2, " / ", 3);
         write (2, b->complexity, ft_strlen(b->complexity));
         write (2, "\n[bench] total_ops: ", 20);
         putnbr_fd(total, 2);

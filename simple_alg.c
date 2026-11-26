@@ -68,20 +68,45 @@ void move_min_to_top(t_stack **a,int position , int size, t_bench *bench)
         }
     }
 }
+
+void	when_3elems(t_stack **a, t_stack **b, t_bench *bench, int position)
+{
+	if (position == 0)
+	{
+		pb(a, b, bench, 1);
+		sa(a, bench, 1);
+		pa(a, b, bench, 1);
+	}
+	else if (position == 1 && ft_lstlast(*a)->value > (*a)->value)
+		sa(a, bench, 1);
+	else if (position == 1)
+		ra(a, bench, 1);
+	else if (position == 2 && (*a)->value < (*a)->next->value)
+		rra(a, bench, 1);
+	else
+	{
+		sa(a, bench, 1);
+		rra(a, bench, 1);
+	}
+}
+
 void simple_alg(t_stack **a, t_stack **b, t_bench *bench)
 {
-    int size ;
+    int size;
     int position;
 
     while (*a)
     {
     size = stack_size(*a);
     position = get_min_position(*a);
+	if (size == 3)
+	{
+		when_3elems(a, b, bench, position);
+		return ;
+	}
     move_min_to_top(a, position, size, bench);
     pb(a, b, bench, 1);
-
     }
     while (*b)
         pa(a, b, bench, 1);
-
 }
