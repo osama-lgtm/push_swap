@@ -15,9 +15,7 @@ int	check_overflow(char *number)
 	}
 	while (*number == '0' && number[1])
 		number++;
-	len = 0;
-	while (number[len])
-		len++;
+	len = ft_strlen(number);
 	if (len > 10)
 		return (1);
 	if (len < 10)
@@ -48,44 +46,36 @@ int	is_num(char *a)
 	return (1);
 }
 
-int	where_start(char **argv)
+static int	is_strat(char *arg)
 {
-	int	start;
-
-	start = 1;
-	while (argv[start])
-	{
-		if (!ft_strcmp(argv[start], "--bench") || !ft_strcmp(argv[start], "--simple")
-				|| !ft_strcmp(argv[start], "--medium")
-				|| !ft_strcmp(argv[start], "--complex")
-				|| !ft_strcmp(argv[start], "--adaptive"))
-			start++;
-			else
-				break ;
-	}
-	return (start);
+	if (!arg)
+		return (0);
+	return (!ft_strcmp(arg, "--simple") || !ft_strcmp(arg, "--medium")
+		|| !ft_strcmp(arg, "--complex") || !ft_strcmp(arg, "--adaptive"));
 }
 
-int	check_repeat(int argc, char **argv, int start)
+int	where_start(char **argv)
 {
-	int	j;
-	int	n1;
-	int	n2;
-
-	while (start < argc)
+	if (!argv || !argv[1])
+		return (1);
+	if (!ft_strcmp(argv[1], "--bench"))
 	{
-		j = start + 1;
-		while (j < argc)
+		if (is_strat(argv[2]))
 		{
-			if (!ft_atoi(argv[start], &n1))
+			if (is_strat(argv[3])
+				|| (argv[3] && !ft_strcmp(argv[3], "--bench")))
 				return (0);
-			if (!ft_atoi(argv[j], &n2))
-				return (0);
-			if (n1 == n2)
-				return (0);
-			j++;
+			return (3);
 		}
-		start++;
+		if (argv[2] && !ft_strcmp(argv[2], "--bench"))
+			return (0);
+		return (2);
+	}
+	if (is_strat(argv[1]))
+	{
+		if (is_strat(argv[2]) || (argv[2] && !ft_strcmp(argv[2], "--bench")))
+			return (0);
+		return (2);
 	}
 	return (1);
 }
@@ -94,19 +84,26 @@ int	ft_check(int argc, char **argv)
 {
 	int	start;
 	int	i;
+	int	j;
+	int	n1;
+	int	n2;
 
 	start = where_start(argv);
-	i = start;
-	if (start >= argc)
+	if (start <= 0 || start >= argc)
 		return (0);
-	while (i < argc)
+	i = start - 1;
+	while (++i < argc)
 	{
 		if (!is_num(argv[i]))
 			return (0);
-		i++;
+		j = i;
+		while (++j < argc)
+		{
+			if (!ft_atoi(argv[i], &n1) || !ft_atoi(argv[j], &n2))
+				return (0);
+			if (n1 == n2)
+				return (0);
+		}
 	}
-	if (!check_repeat(argc, argv, start))
-		return (0);
 	return (start);
 }
-

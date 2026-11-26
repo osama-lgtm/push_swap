@@ -1,5 +1,4 @@
 #include "stacks.h"
-#include <stdio.h>
 
 t_stack *ft_lstlast(t_stack *lst)
 {
@@ -18,17 +17,27 @@ void ft_lstadd_back(t_stack **lst, t_stack *new)
         ft_lstlast(*lst)->next = new;
 }
 
-void	free_stack(t_stack **stack)
+void	free_stack(t_stack **a, t_stack **b)
 {
 	t_stack	*temp;
 
-	if (!stack)
-		return ;
-	while (*stack)
+	if (a && *a)
 	{
-		temp = (*stack)->next;
-		free(*stack);
-		*stack = temp;
+		while (*a)
+		{
+			temp = (*a)->next;
+			free(*a);
+			*a = temp;
+		}
+	}
+	if (b && *b)
+	{
+		while (*b)
+		{
+			temp = (*b)->next;
+			free(*b);
+			*b = temp;
+		}
 	}
 }
 
@@ -40,6 +49,7 @@ t_stack *ft_lstnew(int value)
 	if (!new)
 		return (NULL);
 	new->value = value;
+	new->rank = 0;
 	new->next = NULL;
 	return (new);
 }

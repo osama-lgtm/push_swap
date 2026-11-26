@@ -70,13 +70,13 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6), 1);
 	if (!fill_stack(&stack_a, argc - start, &argv[start]))
 	{
-		free_stack(&stack_a);
+		free_stack(&stack_a, (t_stack **)NULL);
 		return (write(2, "Error\n", 6), 1);
 	}
 	bench.disorder = compute_disorder(stack_a);
 	strat_select(get_strategy_flag(argv), &stack_a, &stack_b, &bench);
 	if (bench.enabled)
 		print_benchmark(&bench);
-	free_stack(&stack_a);
+	free_stack(&stack_a, &stack_b);
 	return (0);
 }

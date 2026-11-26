@@ -48,7 +48,7 @@ t_stack	*ft_lstnew(int value);
 void	ft_lstadd_back(t_stack **lst, t_stack *new);
 t_stack	*ft_lstlast(t_stack *lst);
 int		stack_size(t_stack *stack);
-void	free_stack(t_stack **stack);
+void	free_stack(t_stack **stack2, t_stack **stack1);
 
 // Parsing & Metrics
 int		fill_stack(t_stack **a, int argc, char **argv);

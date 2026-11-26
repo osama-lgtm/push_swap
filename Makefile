@@ -4,10 +4,10 @@ CFLAGS = -Wall -Werror -Wextra
 NAME = push_swap
 
 SRCS = push_swap.c check.c store_in_stack.c \
-       list_modif.c disorder.c\
+       list_modif.c disorder.c \
        strat_select.c write.c\
        rotate.c reverse_rotate.c swap.c push.c \
-	   simple_alg.c medium_alg.c complex_alg.c
+       simple_alg.c medium_alg.c complex_alg.c
 
 OBJS = $(SRCS:.c=.o)
 
