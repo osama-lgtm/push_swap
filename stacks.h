@@ -56,6 +56,8 @@ int		ft_atoi(const char *str, int *value);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_check(int argc, char **argv	);
 double	compute_disorder(t_stack *stack_a);
+size_t        ft_strlen(char *str);
+void        putnbr_fd(int n, int fd);
 
 // Algorithms & Strategy Selection
 void	strat_select(char *flag, t_stack **a, t_stack **b, t_bench *bench);
@@ -65,4 +67,5 @@ void	complex_alg(t_stack **a, t_stack **b, t_bench *bench);
 void	print_benchmark(t_bench *b);
 void	assign_ranks(t_stack *stack);
 void        print_ops(t_bench *bench);
+void        print_benchmark(t_bench *b);
 #endif
