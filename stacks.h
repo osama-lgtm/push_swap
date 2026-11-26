@@ -64,5 +64,5 @@ void	medium_alg(t_stack **a, t_stack **b, t_bench *bench);
 void	complex_alg(t_stack **a, t_stack **b, t_bench *bench);
 void	print_benchmark(t_bench *b);
 void	assign_ranks(t_stack *stack);
-
+void        print_ops(t_bench *bench);
 #endif
