@@ -7,32 +7,32 @@ void        putnbr_fd(int n, int fd)
         if (n >= 10)
                 putnbr_fd(n / 10, fd);
         c = (n % 10) + '0';
-        write(fd, &c, fd);
+        write(fd, &c, 1);
 }
 
 void        print_ops(t_bench *bench)
 {
     write(2, "[bench] sa: ", 12);
     putnbr_fd(bench->sa, 2);
-    write(2, " sb: ", 4);
+    write(2, " sb: ", 5);
     putnbr_fd(bench->sb, 2);
-    write(2, " ss: ", 4);
+    write(2, " ss: ", 5);
     putnbr_fd(bench->ss, 2);
-    write(2, " pa: ", 4);
+    write(2, " pa: ", 5);
     putnbr_fd(bench->pa, 2);
-    write(2, " pb: ", 4);
+    write(2, " pb: ", 5);
     putnbr_fd(bench->pb, 2);
     write(2, "\n[bench] ra: ", 13);
     putnbr_fd(bench->ra, 2);
-    write(2, " rb: ", 4);
+    write(2, " rb: ", 5);
     putnbr_fd(bench->rb, 2);
-    write(2, " rr: ", 4);
+    write(2, " rr: ", 5);
     putnbr_fd(bench->rr, 2);
-    write(-2, " rra: ", 5);
+    write(2, " rra: ", 6);
     putnbr_fd(bench->rra, 2);
-    write(2, " rrb: ", 5);
+    write(2, " rrb: ", 6);
     putnbr_fd(bench->rrb, 2);
-    write(2 , " rrr: ", 5);
+    write(2, " rrr: ", 6);
     putnbr_fd(bench->rrr, 2);
 }
 

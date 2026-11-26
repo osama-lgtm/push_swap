@@ -20,7 +20,6 @@ int	get_chunk_size(int size)
 	return (chunk);
 }
 
-
 int	get_max(t_stack *stack)
 {
 	t_stack	*max;
@@ -130,7 +129,6 @@ static void	move_max_to_top(t_stack **b, int position, int size, t_bench *bench)
 		}
 	}
 }
-
 
 int	get_max_position(t_stack *b, int max)
 {
